@@ -1,0 +1,147 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://sprites/campo.png" type="Texture" id=1]
+[ext_resource path="res://sprites/ball.png" type="Texture" id=2]
+[ext_resource path="res://sprites/barrier2.png" type="Texture" id=3]
+[ext_resource path="res://sprites/player_1.png" type="Texture" id=4]
+[ext_resource path="res://sprites/player2.png" type="Texture" id=5]
+[ext_resource path="res://sprites/barrier1.png" type="Texture" id=6]
+
+[sub_resource type="GDScript" id=4]
+resource_name = "GameController"
+script/source = "extends Node
+
+# Variáveis da bola
+var dirX = 1
+var dirY = -1
+var speed = 400
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	ball(delta)
+	player1()
+	pass
+
+func ball(delta):
+	$Ball/Ball.position.x += speed * dirX * delta
+	$Ball/Ball.position.y += speed * dirY * delta
+	
+	if $Ball/Ball.position.x > 1360:
+		$Ball/Ball.position.x = 640	
+		$Ball/Ball.position.y = 365	
+		dirX *= -1
+	elif $Ball/Ball.position.x < -1360:
+		$Ball/Ball.position.x = 640
+		$Ball/Ball.position.y = 365
+		dirX *= -1
+
+func _on_Barrier_Down_area_entered(area):
+	if area.name == \"Ball\":
+		dirY *= -1
+	pass
+
+
+func _on_Barrier_Up_area_entered(area):
+	if area.name == \"Ball\":
+		dirY *= -1
+	pass
+
+func player1():
+	if Input.is_action_pressed(\"ui_down\"):
+		$Players/Player1.position.y += 4
+	elif Input.is_action_pressed(\"ui_up\"):
+		$Players/Player1.position.y -= 4
+		
+	if $Players/Player1.position.y > 590:
+		$Players/Player1.position.y = 590
+	elif $Players/Player1.position.y < 140:
+			$Players/Player1.position.y = 140
+"
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 641, 36.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 34.5, 74.5 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 6.08276
+
+[node name="main" type="Node"]
+script = SubResource( 4 )
+
+[node name="BG" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite" parent="BG"]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Barriers" type="Node2D" parent="."]
+
+[node name="Barrier_Up" type="Area2D" parent="Barriers"]
+
+[node name="spr_Barrier_Up" type="Sprite" parent="Barriers/Barrier_Up"]
+position = Vector2( -2, 0 )
+scale = Vector2( 0.999221, 1 )
+texture = ExtResource( 6 )
+centered = false
+flip_v = true
+
+[node name="col_Barrier_Up" type="CollisionShape2D" parent="Barriers/Barrier_Up"]
+position = Vector2( 638.5, 34.5 )
+shape = SubResource( 1 )
+
+[node name="Barrier_Down" type="Area2D" parent="Barriers"]
+position = Vector2( -2, 656 )
+
+[node name="spr_Barrier_Down" type="Sprite" parent="Barriers/Barrier_Down"]
+position = Vector2( -1, 0 )
+scale = Vector2( 1.00078, 1 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="col_Barrier_Down" type="CollisionShape2D" parent="Barriers/Barrier_Down"]
+position = Vector2( 644, 27.5 )
+shape = SubResource( 1 )
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Player1" type="Area2D" parent="Players"]
+position = Vector2( 50, 360 )
+
+[node name="spr_Player1" type="Sprite" parent="Players/Player1"]
+texture = ExtResource( 4 )
+
+[node name="col_Player1" type="CollisionShape2D" parent="Players/Player1"]
+shape = SubResource( 2 )
+
+[node name="Player2" type="Area2D" parent="Players"]
+position = Vector2( 1230, 360 )
+
+[node name="spr_Player2" type="Sprite" parent="Players/Player2"]
+texture = ExtResource( 5 )
+flip_h = true
+
+[node name="col_Player2" type="CollisionShape2D" parent="Players/Player2"]
+shape = SubResource( 2 )
+
+[node name="Ball" type="Node2D" parent="."]
+
+[node name="Ball" type="Area2D" parent="Ball"]
+position = Vector2( 640, 365 )
+
+[node name="spr_Ball" type="Sprite" parent="Ball/Ball"]
+texture = ExtResource( 2 )
+
+[node name="col_Ball" type="CollisionShape2D" parent="Ball/Ball"]
+visible = false
+position = Vector2( -1, -2 )
+scale = Vector2( 5, 5 )
+shape = SubResource( 3 )
+
+[connection signal="area_entered" from="Barriers/Barrier_Up" to="." method="_on_Barrier_Up_area_entered"]
+[connection signal="area_entered" from="Barriers/Barrier_Down" to="." method="_on_Barrier_Down_area_entered"]
