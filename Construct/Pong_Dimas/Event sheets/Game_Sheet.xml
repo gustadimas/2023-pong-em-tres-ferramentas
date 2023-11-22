@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Game_Sheet</name>
+    <events>
+        <variable constant="0" name="points_Bot" sid="170593343898582" static="0" type="number">0</variable>
+        <variable constant="0" name="points_Player" sid="748497777731328" static="0" type="number">0</variable>
+        <event-block sid="718019767396517">
+            <conditions>
+                <condition id="-2" name="Compare Y" sid="967469971316621" type="spr_Bot">
+                    <param id="0" name="Comparison">2</param>
+                    <param id="1" name="Y co-ordinate">spr_Ball.Y</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="8Direction" id="7" name="Simulate control" sid="264736141314256" type="spr_Bot">
+                    <param id="0" name="Control">3</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="458787138561829">
+            <conditions>
+                <condition id="-2" name="Compare Y" sid="943510316623581" type="spr_Bot">
+                    <param id="0" name="Comparison">4</param>
+                    <param id="1" name="Y co-ordinate">spr_Ball.Y</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="8Direction" id="7" name="Simulate control" sid="202356049218485" type="spr_Bot">
+                    <param id="0" name="Control">2</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="787085430152820">
+            <conditions>
+                <condition id="-18" name="On created" sid="641624362080011" type="spr_Ball" />
+            </conditions>
+            <actions>
+                <action behavior="Bullet" id="0" name="Set speed" sid="108536960450032" type="spr_Ball">
+                    <param id="0" name="Speed">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="954113728889211">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="265723311683741" type="spr_Ball">
+                    <param id="0" name="Object">spr_WallRight</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-10" name="Add to" sid="451931305477809" type="System">
+                    <param id="0" name="Variable">points_Player</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+                <action id="0" name="Set text" sid="136029979032224" type="text_Player">
+                    <param id="0" name="Text">points_Player</param>
+                </action>
+                <action id="-9" name="Destroy" sid="515349673808564" type="spr_Ball" />
+                <action id="0" name="Spawn another object" sid="175091469661094" type="spr_RespawnBall">
+                    <param id="0" name="Object">spr_Ball</param>
+                    <param id="1" name="Layer">1</param>
+                    <param id="2" name="Image point">0</param>
+                </action>
+                <action id="0" name="Play" sid="916135940181580" type="Audio">
+                    <param id="0" name="Audio file">PongBlip2_Dimas</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="612119779066885">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="309539868739094" type="spr_Ball">
+                    <param id="0" name="Object">spr_WallLeft</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-10" name="Add to" sid="693968780216695" type="System">
+                    <param id="0" name="Variable">points_Bot</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+                <action id="0" name="Set text" sid="525548969194368" type="text_Bot">
+                    <param id="0" name="Text">points_Bot</param>
+                </action>
+                <action id="-9" name="Destroy" sid="120996423904035" type="spr_Ball" />
+                <action id="0" name="Spawn another object" sid="365120023638789" type="spr_RespawnBall">
+                    <param id="0" name="Object">spr_Ball</param>
+                    <param id="1" name="Layer">1</param>
+                    <param id="2" name="Image point">0</param>
+                </action>
+                <action id="0" name="Play" sid="286084388883554" type="Audio">
+                    <param id="0" name="Audio file">PongBlip2_Dimas</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="381443787391062">
+            <conditions>
+                <condition id="0" name="On key pressed" sid="696268329884520" type="Keyboard">
+                    <param id="0" name="Key">32</param>
+                </condition>
+                <condition behavior="Bullet" id="0" name="Compare speed" sid="784497906758896" type="spr_Ball">
+                    <param id="0" name="Comparison">0</param>
+                    <param id="1" name="Speed">0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Bullet" id="0" name="Set speed" sid="978186785157768" type="spr_Ball">
+                    <param id="0" name="Speed">300</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="627213064834318" type="spr_Ball">
+                    <param id="0" name="Angle">choose(random(-45,45),random(135, 225))</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="955613560028282">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="394883619271780" type="spr_Ball">
+                    <param id="0" name="Object">spr_Wall</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Play" sid="398533262062250" type="Audio">
+                    <param id="0" name="Audio file">PongBlip3_Dimas</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="329661045132903">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="299226061650226" type="spr_Ball">
+                    <param id="0" name="Object">spr_Player</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Play" sid="675658089543754" type="Audio">
+                    <param id="0" name="Audio file">PongBlip_Dimas</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="171791721984410">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="994306284525395" type="spr_Ball">
+                    <param id="0" name="Object">spr_Bot</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Play" sid="452388063683006" type="Audio">
+                    <param id="0" name="Audio file">PongBlip_Dimas</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="557138399148533">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="202852730956433" type="System">
+                    <param id="0" name="Variable">points_Bot</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">10</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Set text" sid="963782998146627" type="text_Bot">
+                    <param id="0" name="Text">&quot;Bot Win!&quot;</param>
+                </action>
+                <action id="-16" name="Wait" sid="101271235789964" type="System">
+                    <param id="0" name="Seconds">2.0</param>
+                </action>
+                <action id="-2" name="Go to layout" sid="522928001793835" type="System">
+                    <param id="0" name="Layout">Menu</param>
+                </action>
+                <action id="-21" name="Reset global variables" sid="595944207403691" type="System" />
+            </actions>
+        </event-block>
+        <event-block sid="644608844954093">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="118824313668908" type="System">
+                    <param id="0" name="Variable">points_Player</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">10</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Set text" sid="221080465066683" type="text_Player">
+                    <param id="0" name="Text">&quot;You Win!&quot;</param>
+                </action>
+                <action id="-16" name="Wait" sid="700339131479092" type="System">
+                    <param id="0" name="Seconds">2.0</param>
+                </action>
+                <action id="-2" name="Go to layout" sid="899641202268764" type="System">
+                    <param id="0" name="Layout">Menu</param>
+                </action>
+                <action id="-21" name="Reset global variables" sid="946982919679250" type="System" />
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
