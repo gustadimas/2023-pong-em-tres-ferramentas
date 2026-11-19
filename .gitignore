@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+.import/
+.godot/
+export/
+*.uistate.json
+*.uistate.xml
